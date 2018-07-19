@@ -128,15 +128,15 @@ Basically, the `setTimeout` needs to wait for all the code for queued messages t
 ```
 
 ### Several runtimes communicating together
-A web worker or a cross-origin iframe has its own stack, heap, and message queue. 
-Two distinct runtimes can only communicate through sending messages via the postMessage method. 
+__A web worker__ or a cross-origin __iframe__ has its own stack, heap, and message queue. 
+Two distinct runtimes can only communicate through sending messages via the `postMessage` method. 
 This method adds a message to the other runtime if the latter listens to message events.
 
 ### Never blocking
 A very interesting property of the event loop model is that JavaScript, unlike a lot of other languages, never blocks.
 So when the application is waiting for an IndexedDB query to return or an XHR request to return, it can still process other things like user input. 
 
-Legacy exceptions exist like alert or synchronous XHR, but it is considered as a good practice to avoid them.
+Legacy exceptions exist like `alert` or `synchronous XHR`, but it is considered as a good practice to avoid them.
 
 # Reference
 * [__MDN:__ Concurrency model and Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
