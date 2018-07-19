@@ -10,7 +10,7 @@ The event loop is a __first-in-first-out (FIFO) queue__, meaning that callbacks 
 
 ### Concurrency model based on an "event loop"
 
-``|   QUEUE   |``
+`    QUEUE    `
 
 A JavaScript runtime uses a message queue, which is a list of messages to be processed. 
 Each message has an associated function which gets called in order to handle the message.
