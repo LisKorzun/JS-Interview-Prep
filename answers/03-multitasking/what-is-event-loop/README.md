@@ -8,6 +8,10 @@ This means that JavaScript code is not multi-threaded even though it appears to 
 (__Javascript is single threaded.__ This means Javascript will process each line of code after the previous line of code.)
 The event loop is a __first-in-first-out (FIFO) queue__, meaning that callbacks execute in the order they were added onto the queue.
 
+### Concurrency model based on an "event loop"
+
+``:grey_exclamation:   QUEUE   :grey_exclamation:``
+
 A JavaScript runtime uses a message queue, which is a list of messages to be processed. 
 Each message has an associated function which gets called in order to handle the message.
 
@@ -22,7 +26,7 @@ The processing of functions continues until the stack is once again empty; then 
 __Event Table (Hash) and Event Queue:__ _When the Javascript engine comes across a line of code that needs to be run, it places the ‘trigger’ of that execution and the action of it in an event table. Later on, when the engine checks the event table, any events that have transpired, the corresponding action is moved into an event queue. 
 Later on, when the engine checks the event queue, if there is an event there to execute it will do so. After executing, it will check the event table again to see if any new events have transpired. Javascript is looping through this process over and over._
 
-In the case of a callback, when the initial function is invoke (let’s say ```setTimeout```), the trigger-action pair of ‘1000ms in the future’ and callback are added to the event table. Later on, when the Javascript engine checks the event table and ‘1000ms in the future’ has transpired, it will add the callback to the event queue.
+In the case of a callback, when the initial function is invoke (let’s say ``setTimeout``), the trigger-action pair of ‘1000ms in the future’ and callback are added to the event table. Later on, when the Javascript engine checks the event table and ‘1000ms in the future’ has transpired, it will add the callback to the event queue.
 In reality, the callback is executed the next time the Javascript engine checks the event queue. In fact it is possible this may not be right away, and so the actual timing of the callback being executed is not 1000ms.
 
 ```javascript
