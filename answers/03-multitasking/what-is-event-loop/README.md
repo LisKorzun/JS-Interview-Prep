@@ -4,7 +4,7 @@ The entire process of reading code, queueing up tasks, and executing tasks is th
 
 The __Event Loop__ is a queue of callback functions. When an async function executes, the callback function is pushed into the queue. 
 The JavaScript engine doesn't start processing the event loop until the code after an async function has executed. 
-This means that JavaScript code is not multi-threaded even though it appears to be so. 
+This means that *JavaScript code is not multi-threaded* even though it appears to be so. 
 (__Javascript is single threaded.__ This means Javascript will process each line of code after the previous line of code.)
 The event loop is a __first-in-first-out (FIFO) queue__, meaning that callbacks execute in the order they were added onto the queue.
 
@@ -12,7 +12,7 @@ The event loop is a __first-in-first-out (FIFO) queue__, meaning that callbacks 
 
 __`QUEUE`__
 
-A JavaScript runtime uses a event queue, which is __a list of events to be processed. 
+A JavaScript runtime uses an event queue, which is __a list of events to be processed. 
 Each event has an associated function__ which gets called in order to handle the event.
 
 At some point during the event loop, the runtime starts handling the events on the queue, __starting with the oldest one__. 
@@ -45,6 +45,7 @@ When bar calls foo, a second frame is created and pushed on top of the first one
 When foo returns, the top frame element is popped out of the stack (leaving only bar's call frame). When bar returns, the stack is empty.
 
 __`HEAP`__
+
 Objects are allocated in a heap which is just a name to denote a large mostly unstructured region of memory.
 
 _In other words:_
@@ -87,7 +88,55 @@ If there is no other message in the queue, the message is processed right after 
 however, if there are messages, the ``setTimeout`` message will have to wait for other messages to be processed. 
 For that reason, __the second argument indicates a minimum time and not a guaranteed time__.
 
+__`ZERO DELAYS`__
 
+Zero delay doesn't actually mean the call back will fire-off after zero milliseconds. 
+Calling `setTimeout` with a delay of 0 (zero) milliseconds doesn't execute the callback function after the given interval.
+
+The execution depends on the number of waiting tasks in the queue. 
+In the example below, the message `'this is just a message'` will be written to the console before the message in the callback gets processed, 
+because the delay is the minimum time required for the runtime to process the request, but not a guaranteed time.
+
+Basically, the `setTimeout` needs to wait for all the code for queued messages to complete even though you specified a particular time limit for your `setTimeout`.
+```javascript
+(function() {
+
+  console.log('this is the start');
+
+  setTimeout(function cb() {
+    console.log('this is a msg from call back');
+  });
+
+  console.log('this is just a message');
+
+  setTimeout(function cb1() {
+    console.log('this is a msg from call back1');
+  }, 0);
+
+  console.log('this is the end');
+
+})();
+```
+
+```javascript
+// "this is the start"
+// "this is just a message"
+// "this is the end"
+// note that function return, which is undefined, happens here 
+// "this is a msg from call back"
+// "this is a msg from call back1"
+```
+
+### Several runtimes communicating together
+A web worker or a cross-origin iframe has its own stack, heap, and message queue. 
+Two distinct runtimes can only communicate through sending messages via the postMessage method. 
+This method adds a message to the other runtime if the latter listens to message events.
+
+### Never blocking
+A very interesting property of the event loop model is that JavaScript, unlike a lot of other languages, never blocks.
+So when the application is waiting for an IndexedDB query to return or an XHR request to return, it can still process other things like user input. 
+
+Legacy exceptions exist like alert or synchronous XHR, but it is considered as a good practice to avoid them.
 
 # Reference
 * [__MDN:__ Concurrency model and Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
