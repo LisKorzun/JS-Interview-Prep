@@ -11,11 +11,11 @@ Some suggested answers along with relevant resources are posted in the answers f
 3. [React & Redux](##react--redux)
 
 
-### General Questions
+### 1. General Questions
 
-### Platform: Browser & DOM
+### 2. Platform: Browser & DOM
 
-### Multitasking
+### 3. Multitasking
 * [What is the event loop in Javascript?](/LisKorzun/JS-Interview-Prep/tree/master/answers/03-multitasking/what-is-event-loop)
 
-### React & Redux
+### 4. React & Redux
