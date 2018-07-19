@@ -10,13 +10,13 @@ The event loop is a __first-in-first-out (FIFO) queue__, meaning that callbacks 
 
 ### Concurrency model based on an "event loop"
 
-__`QUEUE`__
+      __`QUEUE`__
 
-A JavaScript runtime uses a message queue, which is a list of messages to be processed. 
-Each message has an associated function which gets called in order to handle the message.
+A JavaScript runtime uses a event queue, which is a list of events to be processed. 
+Each event has an associated function which gets called in order to handle the event.
 
-At some point during the event loop, the runtime starts handling the messages on the queue, starting with the oldest one. 
-To do so, the message is removed from the queue and its corresponding function is called with the message as an input parameter. 
+At some point during the event loop, the runtime starts handling the events on the queue, starting with the oldest one. 
+To do so, the event is removed from the queue and its corresponding function is called with the event as an input parameter. 
 As always, calling a function creates a new stack frame for that function's use.
 
 ![Concurrency model based on an "event loop"](https://developer.mozilla.org/files/4617/default.svg)
