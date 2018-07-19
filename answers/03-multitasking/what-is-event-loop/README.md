@@ -48,6 +48,22 @@ __`HEAP`__
 
 Objects are allocated in a heap which is just a name to denote a large mostly unstructured region of memory.
 
+__`RUN-TO-COMPLETION`__
+
+Each message is processed completely before any other message is processed. 
+This offers some nice properties when reasoning about your program, including the fact that whenever a function runs, 
+it cannot be pre-empted and will run entirely before any other code runs (and can modify data the function manipulates).
+
+A downside of this model is that if a message takes too long to complete, 
+the web application is unable to process user interactions like click or scroll. 
+The browser mitigates this with the "a script is taking too long to run" dialog. 
+A good practice to follow is to make message processing short and if possible cut down one message into several messages.
+
+__`ADDING MESSAGES (EVENTS)`__
+
+In web browsers, messages are added anytime an event occurs and there is an event listener attached to it. If there is no listener, the event is lost. 
+So a click on an element with a click event handler will add a message--likewise with any other event.
+
 _In other words:_
 > *__Event Table (Hash) and Event Queue:__ When the Javascript engine comes across a line of code that needs to be run, 
 it places the ‘trigger’ of that execution and the action of it in an event table. 
