@@ -16,7 +16,7 @@ Some suggested answers along with relevant resources are posted in the answers f
 ### 2. Platform: Browser & DOM
 
 ### 3. Multitasking
-* [What is the event loop in Javascript?](/LisKorzun/JS-Interview-Prep/blob/master/answers/03-multitasking/what-is-event-loop)
-* [Microtasks & Macrotasks : what Does It All Mean?](/LisKorzun/JS-Interview-Prep/blob/master/answers/03-multitasking/micro-macro-tasks)
+* [What is the event loop in Javascript?](/answers/03-multitasking/what-is-event-loop)
+* [Microtasks & Macrotasks : what Does It All Mean?](/answers/03-multitasking/micro-macro-tasks)
 
 ### 4. React & Redux
