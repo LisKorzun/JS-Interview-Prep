@@ -16,6 +16,6 @@ Some suggested answers along with relevant resources are posted in the answers f
 ### Platform: Browser & DOM
 
 ### Multitasking
-* [What is the event loop in Javascript?]()
+* [What is the event loop in Javascript?](/LisKorzun/JS-Interview-Prep/tree/master/answers/03-multitasking/what-is-event-loop)
 
 ### React & Redux
