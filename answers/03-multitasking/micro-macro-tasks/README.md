@@ -91,11 +91,11 @@ __`A SIMPLIFIED PROCESS MODEL IS AS FOLLOWS:`__
 
 __`SOMETHING TO REMEMBER:`__
 
-1. when a task (in macrotask queue) is running,new events may be registered.So new tasks may be created.Below are two new created tasks:
-    * `promiseA.then()` is callback is a task
+1. when a task (in macrotask queue) is running, new events may be registered. So new tasks may be created. Below are two new created tasks:
+    * `promiseA.then()`'s callback is a task
         * __promiseA is resolved/rejected:__  the task will be pushed into microtask queue __in current round of event loop__.
         * __promiseA is pending:__  the task will be pushed into microtask queue __in the future round of event loop__ (may be next round)
-    * `setTimeout`(callback,n)’s callback is a task,and will be pushed into macrotask queue,even n is 0;
+    * `setTimeout`(callback,n)’s callback is a task, and will be pushed into macrotask queue, even n is 0;
 2. __*task in microtask queue will be run in the current round, while task in macrotask queue has to wait for next round of event loop*__.
 3. callback of `“click”`, `”scroll”`, `”ajax”`, `”setTimeout”`… are tasks, however we should also remember __js codes as a whole in script tag is a task (a macrotask) too__.
 
