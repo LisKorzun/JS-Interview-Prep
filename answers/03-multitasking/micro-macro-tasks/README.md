@@ -39,10 +39,10 @@ This is why `promise1` and `promise2` are logged after `script end`, as the curr
 
 
 > *__Examples of Macro:__
-  setTimeout, setInternal, setImmediate, I/O tasks*
+  setTimeout, setInternal, setImmediate, requestAnimationFrame, I/O, UI rendering*
   
 > *__Examples of Micro:__
-  process.nextTick, Promises, mutation observer callbacks*
+  process.nextTick, Promises, Object.observe, MutationObserver*
   
 ```javascript
 (function test() {
