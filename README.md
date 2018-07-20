@@ -17,6 +17,7 @@ Some suggested answers along with relevant resources are posted in the answers f
 
 ### 3. Multitasking
 * [What is the event loop in Javascript?](/answers/03-multitasking/what-is-event-loop)
-* [Microtasks & Macrotasks : what Does It All Mean?](/answers/03-multitasking/micro-macro-tasks)
+* [Microtasks & Macrotasks : what does it all mean?](/answers/03-multitasking/micro-macro-tasks)
+* [Long running operation : how to handle it?](/answers/03-multitasking/long-running-operation)
 
 ### 4. React & Redux
