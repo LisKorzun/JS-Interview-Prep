@@ -1,4 +1,4 @@
-# Microtasks & Macrotasks : what Does It All Mean?
+# Microtasks & Macrotasks : what does it all mean?
 
 There are macrotasks (known as tasks) and microtasks. In reality, these two types of tasks occupy different queues, and do they don’t mix.
 
