@@ -101,6 +101,69 @@ they can take advantage of multi-core processors, which a single-threaded web si
 
 **_The main limitation of web workers is that DOM APIs are not available to code running in a worker._**
 
+__`Updating DOM during long running operation`__
+
+JavaScript is single threaded. This means that during operation execution the single thread is busy and 
+cannot handle UI events like mouse move and mouse click. From end user perspective the UI is dead.
+
+Modern solution is to use Web Worker. As long as your algorithm is pure (only accesses JavaScript objects) then you are OK. 
+However, if the algorithm needs to access DOM objects you cannot use web workers since they have no access to the DOM.
+
+How can I implement a long running operation which must be executed under the "UI" thread but 
+still give some feedback to the user during execution: 
+* User clicks the Start button which executes the `longRunningOperation` function
+* No progress is displayed. UI is considered non responsive
+* Only after `longRunningOperation` completes a "FINISHED" message is displayed
+
+*__This is the expected behavior since JavaScript is single threaded and the DOM has no chance to refresh itself 
+until `longRunningOperation` finishes.__*
+
+The solution is to break the function into multiple "short running" operations and ask the browser to refresh 
+between each step.
+
+```javascript
+    function longRunningOperation() {
+        var begin = new Date();
+        var progress = 0;
+        console.log("RUNNING");
+        
+        function step() {
+            if (++progress == 250) {
+                var time = new Date() - begin;
+                console.log(time);
+                console.log('FINISHING')
+                return;
+            }
+            sleep(10);
+            console.log(progress);
+            setTimeout(step);
+        }
+        setTimeout(step);
+    }
+    
+    function sleep(timeout) {
+        var begin = new Date();
+        while (new Date() - begin < timeout) {
+        }
+    }
+    longRunningOperation();
+```
+Zero timeout means "I want to execute my code at a later time after the browser processes its event queue and **UI is updated**".
+
+Each step is 10 milliseconds long. Assuming DOM update is efficient we expect the whole operation to complete 
+in 250*10 = ~2500 milliseconds. But script takes 3769 milliseconds to completes.
+
+Where is the code that cost us more than 1 second of processing?
+The answer lies inside the setTimeout function. Apparently, setTimeout has a maximum frequency.
+According to the standard it is recommended that `setTimeout` waits __at least 4 milliseconds__ before raising the event. 
+
+In case our algorithm is divided into smaller steps the `setTimeout` overhead is bigger. 
+For example, our code simulate a step of 10 milliseconds while `setTimeout` overhead is 4 milliseconds. 
+This is a 40% overhead. For a 5 milliseconds step, the overhead is 80%
+
+Probably the best solution is to use Web Workers for executing long running operation. 
+As I mentioned before, it is not a relevant solution when the long running operation is DOM related.
+
 # Reference
 * [__MDN:__ Intensive JavaScript](https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript)
 * [Updating DOM during long running operation](http://blogs.microsoft.co.il/oric/2015/03/21/updating-dom-during-long-running-operation)
