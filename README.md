@@ -14,7 +14,7 @@ Some suggested answers along with relevant resources are posted in the answers f
 ### 1. General Questions
 
 ### 2. Platform: Browser & DOM
-* [What are DOM and BOM?](/answers/02-platform/what-is-event-loop)
+* [What are DOM and BOM?](/answers/02-platform/dom-and-bom)
 
 ### 3. Multitasking
 * [What is the event loop in Javascript?](/answers/03-multitasking/what-is-event-loop)
